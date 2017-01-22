@@ -1,0 +1,22 @@
+{
+    "name": "dubems/app-web-sms",
+    "description": "Laravel Package to send notifications using AppWebSms",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+
+        "illuminate/notifications": "5.3.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*"
+    },
+    "authors": [
+        {
+            "name": "Nriagu Dubem",
+            "email": "nriagudubem@yahoo.com"
+        }
+        ],
+    "autoload": {
+        "psr-4": {
+            "AppWebSms\\": "src"
+        }
+    }
+}
