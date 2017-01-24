@@ -6,7 +6,9 @@
     "require": {
 
         "illuminate/notifications": "5.3.*",
-        "illuminate/support": "5.1.*|5.2.*|5.3.*"
+        "illuminate/support": "5.1.*|5.2.*|5.3.*",
+        "nategood/httpful": "*",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "authors": [
         {

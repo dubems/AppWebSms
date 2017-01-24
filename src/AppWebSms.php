@@ -4,13 +4,14 @@
 namespace AppWebSms;
 
 use AppWebSms\AppWebSmsMessage;
+use GuzzleHttp\Client;
 
 class AppWebSms
 {
     protected $username;
     protected $password;
     protected $sender;
-    protected $baseUrl = 'http://www.appwebsms.com/index.php';
+    protected $baseUrl = 'http://www.appwebsms.com';
 
     /**
      * AppWebSms constructor.
@@ -34,7 +35,24 @@ class AppWebSms
     {
         $recipient = $message->getRecipient();
         $message   = $message->getMessage();
-            
+        $params = [
+            'option'=>'com_spc',
+            'comm'=>'spc_api',
+            'username'=>$this->username,
+            'password'=>$this->password,
+            'sender'=>'@@'.$this->sender.'@@',
+            'recipient'=>'@@'.$recipient.'@@',
+            'message'=>'@@'.$message.'@@'
+        ];
+
+       return   $this->sendRequest($params);
     }
-    
+
+    protected function sendRequest($params)
+    {
+        $client = new Client(['base_uri'=>$this->baseUrl]);
+        $response = $client->get('/index.php',['query'=>$params]);
+
+        return $response;
+    }
 }
