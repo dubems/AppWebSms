@@ -1,6 +1,8 @@
 <?php
 
 
+namespace AppWebSms;
+
 use Illuminate\Support\ServiceProvider;
 use AppWebSms\AppWebSms as AppWebSmsClient;
 use AppWebSms\Exceptions\InvalidConfiguration;
