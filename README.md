@@ -84,7 +84,6 @@ public function routeNotificationForAppWebSms()
 
 #### AppWebSmsMessage
 
-- `setDestination('')`: Accepts a phone to use as the notification sender.
 - `setMesssage('')`   : Accepts a string value for the notification body.
 - `setSchedule('2017-01-13 10:30:04')`   : Accepts a date-time string for when the notification should be sent.
 
