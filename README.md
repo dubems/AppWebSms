@@ -40,7 +40,7 @@ Add your AppWebSms Account Name, Account Password, and Sender (The sender ID to 
 ```php
 // config/services.php
 ...
-'airSob' => [
+'appwebsms' => [
     'username' => 'Your username',
     'password' => 'Your password',
     'sender'   => 'Dubem'
@@ -64,7 +64,7 @@ class ValentineDateApproved extends Notification
         return [AppWebSmsChannel::class];
     }
 
-    public function toAirSob($notifiable)
+    public function toAppWebSms($notifiable)
     {
         return (new AppWebSmsMessage('Your {$notifiable->service} account was approved!'));
     }
