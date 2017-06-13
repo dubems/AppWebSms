@@ -30,26 +30,28 @@ class AppWebSmsChannel
         $this->appWebSms = $appWebSms;
     }
 
-    public function send($notifiable,Notification $notification)
+    public function send($notifiable,Notification $notification,$schedule = null)
     {
         if (! $recipient = $notifiable->routeNotificationFor('app-web-sms')) {
             throw CouldNotSendNotification::missingTo();
         }
 
         $message = $notification->toAppWebSms($notifiable);
-        
+
         if(is_string($message))
         {
             $message = new AppWebSmsMessage($message);
         }
-        
+
+        is_null($schedule) ? : $message->setSchedule($schedule);
+
         $message->setRecipient($recipient);
-        
+
         try{
             $response = $this->appWebSms->sendSms($message);
-            
+
             return $response;
-            
+
         } catch(Exception $exception){
             throw CouldNotSendNotification::ErrorFromService($exception);
         }

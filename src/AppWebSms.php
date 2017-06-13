@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class AppWebSms
 {
-    
+
     protected $username;
     protected $password;
     protected $sender;
@@ -24,35 +24,48 @@ class AppWebSms
     {
         $this->username = $username;
         $this->password = $password;
-        $this->sender = $sender;
+        $this->sender   = $sender;
     }
 
     public function sendSms(AppWebSmsMessage $message)
     {
-         $this->prepareAndSendSms($message);
+        return $this->prepareAndSendSms($message);
     }
 
     public function prepareAndSendSms( AppWebSmsMessage $message)
     {
         $recipient = $message->getRecipient();
+        $schedule  = $message->getSchedule();
         $message   = $message->getMessage();
+
+
         $params = [
             'option'=>'com_spc',
             'comm'=>'spc_api',
-            'username'=>$this->username,
-            'password'=>$this->password,
-            'sender'=>'@@'.$this->sender.'@@',
-            'recipient'=>'@@'.$recipient.'@@',
-            'message'=>'@@'.$message.'@@'
+            'username'=> $this->username,
+            'password'=> $this->password,
+            'sender'=> $this->sender,
+            'recipient'=> $recipient,
+            'message'=> $message,
+            'schedule'=>$schedule
         ];
 
-       return   $this->sendRequest($params);
+
+        return   $this->sendRequest($params);
     }
 
     protected function sendRequest($params)
     {
-        $client = new Client(['base_uri'=>$this->baseUrl]);
-        $response = $client->get('/index.php',['query'=>$params]);
+
+        $query = http_build_query($params);
+        $url = $this->baseUrl.'/index.php' . "?" . $query;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
 
         return $response;
     }

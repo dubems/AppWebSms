@@ -10,7 +10,6 @@ use AppWebSms\Exceptions\InvalidConfiguration;
 class AppWebSmsServiceProvider extends ServiceProvider
 {
     
-    
     public function boot()
     {
         $this->app->singleton(AppWebSmsClient::class,function(){
