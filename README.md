@@ -1,4 +1,4 @@
-# AirSob notifications channel for Laravel 5.4
+# AppWebSms notifications channel for Laravel 5.4
 
 This package makes it easy to send [AppWebSms notifications](https://www.appwebsms.com) with  Laravel 5.4.
 
